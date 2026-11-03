@@ -6,7 +6,14 @@ const isProtectedRoute = createRouteMatcher(["/dashboard(.*)"]);
 
 export default clerkMiddleware((auth, req) => {
   const clerkKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
-  const isClerkActive = clerkKey && !clerkKey.includes("sample_key") && clerkKey.startsWith("pk_");
+  const secretKey = process.env.CLERK_SECRET_KEY;
+  const isClerkActive =
+    clerkKey &&
+    !clerkKey.includes("sample_key") &&
+    clerkKey.startsWith("pk_") &&
+    secretKey &&
+    !secretKey.includes("sample_key") &&
+    secretKey.startsWith("sk_");
 
   if (!isClerkActive) {
     // Development mode bypass allows instant preview and testing without waiting for live keys

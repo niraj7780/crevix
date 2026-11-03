@@ -28,28 +28,47 @@ test("AES-256-GCM Cryptographic Token Sealing & Decryption", () => {
   assert.equal(decrypted, sampleToken, "Decrypted token must exactly match original plaintext");
 });
 
-// 2. Entitlements: Multi-Tier Quota Enforcement
-test("Server-side Entitlement Verification Enforces Quotas", () => {
-  const PLAN_LIMITS = {
-    free: { maxPosts: 10, maxRules: 1 },
-    creator: { maxPosts: 100, maxRules: 5 },
-    pro: { maxPosts: 500, maxRules: 25 },
-  };
+// 2. Entitlements: Crevix All Access (30-Day Free Trial & ₹199/month Unified Subscription)
+test("Server-side Entitlement Verification Enforces Crevix All Access & 30-Day Trial", () => {
+  function verifyAccess(status, trialEndDate, currentPosts = 0) {
+    const now = new Date();
+    const trialEnd = new Date(trialEndDate);
+    const FAIR_USE_POST_LIMIT = 500;
 
-  // Free tier test
-  const freeUsage = 10;
-  const freeAllowed = freeUsage < PLAN_LIMITS.free.maxPosts;
-  assert.equal(freeAllowed, false, "Free tier user with 10 posts must be blocked from scheduling an 11th");
+    if (status === "active") {
+      if (currentPosts >= FAIR_USE_POST_LIMIT) {
+        return { allowed: false, reason: "Fair-use limit reached" };
+      }
+      return { allowed: true, status: "active" };
+    }
 
-  // Creator tier test
-  const creatorUsage = 28;
-  const creatorAllowed = creatorUsage < PLAN_LIMITS.creator.maxPosts;
-  assert.equal(creatorAllowed, true, "Creator tier user with 28 posts must be allowed to schedule");
+    if (status === "trialing") {
+      if (now > trialEnd) {
+        return { allowed: false, reason: "30-day trial expired" };
+      }
+      return { allowed: true, status: "trialing" };
+    }
 
-  // Pro tier test
-  const proRules = 5;
-  const proRuleAllowed = proRules < PLAN_LIMITS.pro.maxRules;
-  assert.equal(proRuleAllowed, true, "Pro tier user with 5 rules must be allowed to create more rules up to 25");
+    return { allowed: false, reason: "Subscription inactive" };
+  }
+
+  // Active trial test (within 30 days)
+  const activeTrialEnd = new Date(Date.now() + 15 * 24 * 60 * 60 * 1000);
+  const trialCheck = verifyAccess("trialing", activeTrialEnd, 12);
+  assert.equal(trialCheck.allowed, true, "Active trial user must have access to all features");
+
+  // Expired trial test
+  const expiredTrialEnd = new Date(Date.now() - 2 * 24 * 60 * 60 * 1000);
+  const expiredCheck = verifyAccess("trialing", expiredTrialEnd, 0);
+  assert.equal(expiredCheck.allowed, false, "Expired trial user must be blocked until ₹199/mo subscription starts");
+
+  // Active paid subscriber test (₹199/mo)
+  const paidCheck = verifyAccess("active", activeTrialEnd, 45);
+  assert.equal(paidCheck.allowed, true, "Active ₹199/mo subscriber must have full access");
+
+  // Fair-use ceiling test
+  const fairUseCheck = verifyAccess("active", activeTrialEnd, 500);
+  assert.equal(fairUseCheck.allowed, false, "Posting beyond fair use (500 posts) must trigger protection");
 });
 
 // 3. Meta Integration: HMAC Signature Timing-Safe Verification

@@ -1,134 +1,179 @@
-export type PlanTier = "free" | "creator" | "pro";
+/**
+ * CREVIX — SINGLE UNIFIED SUBSCRIPTION MODEL
+ * 
+ * Product: Crevix All Access
+ * - First 30 days: FREE
+ * - After first 30 days: ₹199/month (INR)
+ * - All features included for every active subscriber or trial user.
+ */
 
-export interface PlanLimits {
+export type SubscriptionStatus = "trialing" | "active" | "cancelled" | "past_due" | "expired";
+
+export interface PlanConfig {
   name: string;
-  maxSocialAccounts: number;
-  maxPostsPerMonth: number;
-  maxAutomationRules: number;
-  maxResearchReportsPerMonth: number;
-  maxWorkspaceMembers: number;
-  pricePerMonthUsd: number;
+  code: "all_access";
+  trialDays: number;
+  pricePerMonthInr: number;
   features: string[];
 }
 
-export const PLAN_LIMITS: Record<PlanTier, PlanLimits> = {
-  free: {
-    name: "Free",
-    maxSocialAccounts: 1,
-    maxPostsPerMonth: 10,
-    maxAutomationRules: 1,
-    maxResearchReportsPerMonth: 5,
-    maxWorkspaceMembers: 1,
-    pricePerMonthUsd: 0,
-    features: [
-      "1 Connected Social Account",
-      "10 Scheduled Posts / month",
-      "1 Active DM Automation Rule",
-      "5 AI Topic Research Reports / month",
-      "Standard Community Support",
-    ],
-  },
-  creator: {
-    name: "Creator",
-    maxSocialAccounts: 2,
-    maxPostsPerMonth: 100,
-    maxAutomationRules: 5,
-    maxResearchReportsPerMonth: 50,
-    maxWorkspaceMembers: 2,
-    pricePerMonthUsd: 29,
-    features: [
-      "2 Connected Social Accounts",
-      "100 Scheduled Posts / month",
-      "5 Active DM Automation Rules",
-      "50 AI Topic Research Reports / month",
-      "Instagram Lead Capture CRM",
-      "Priority Queue Dispatch",
-    ],
-  },
-  pro: {
-    name: "Pro Agency",
-    maxSocialAccounts: 5,
-    maxPostsPerMonth: 500,
-    maxAutomationRules: 25,
-    maxResearchReportsPerMonth: 200,
-    maxWorkspaceMembers: 5,
-    pricePerMonthUsd: 79,
-    features: [
-      "5 Connected Social Accounts",
-      "500 Scheduled Posts / month",
-      "25 Active DM Automation Rules",
-      "200 AI Topic Research Reports / month",
-      "Visual Flow Graph Automation",
-      "Unified Direct Message Inbox",
-      "5 Team Member Seats",
-      "VIP Dedicated Support",
-    ],
-  },
+export const CREVIX_PLAN: PlanConfig = {
+  name: "Crevix All Access",
+  code: "all_access",
+  trialDays: 30,
+  pricePerMonthInr: 199,
+  features: [
+    "Instagram Comment-to-DM Automation",
+    "Unlimited Automation Rules",
+    "AI Viral Hook & Reel Script Generator",
+    "AI Topic Research & Trend Analysis",
+    "Multi-Account Content Scheduling & Publishing",
+    "Interactive Visual Content Calendar",
+    "Zero-Egress Cloudflare R2 Media Library",
+    "Creator CRM & Dynamic Lead Pipeline (CSV Export)",
+    "Real-Time Social Analytics & Reach Tracking",
+    "Unified Direct Message Inbox",
+    "Visual Flow Graph Workflow Builder",
+    "On-Screen Teleprompter Studio",
+  ],
 };
+
+export interface SubscriptionState {
+  plan: "all_access";
+  status: SubscriptionStatus;
+  trialStartDate: Date;
+  trialEndDate: Date;
+  currentPeriodStart: Date;
+  currentPeriodEnd: Date;
+  cancelAtPeriodEnd: boolean;
+}
 
 export interface UsageCheckResult {
   allowed: boolean;
-  currentUsage: number;
-  maxAllowed: number;
   reason?: string;
+  status: SubscriptionStatus;
+  daysRemainingInTrial?: number;
 }
 
 /**
- * Checks if a workspace can schedule another post in this billing period.
+ * Checks if a workspace has active access to Crevix features.
+ * Access is granted if the workspace is in an active 30-day trial OR has an active paid subscription.
  */
-export function checkPostSchedulingEntitlement(tier: PlanTier, currentMonthlyPosts: number): UsageCheckResult {
-  const limit = PLAN_LIMITS[tier] || PLAN_LIMITS.free;
-  if (currentMonthlyPosts >= limit.maxPostsPerMonth) {
+export function checkWorkspaceAccess(
+  status: SubscriptionStatus = "trialing",
+  trialEndDate?: Date | string
+): UsageCheckResult {
+  const now = new Date();
+  const trialEnd = trialEndDate ? new Date(trialEndDate) : new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
+  const daysRemaining = Math.max(0, Math.ceil((trialEnd.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)));
+
+  if (status === "active") {
     return {
-      allowed: false,
-      currentUsage: currentMonthlyPosts,
-      maxAllowed: limit.maxPostsPerMonth,
-      reason: `You have reached your limit of ${limit.maxPostsPerMonth} posts for this month on the ${limit.name} tier. Upgrade to publish more.`,
+      allowed: true,
+      status: "active",
     };
   }
+
+  if (status === "trialing") {
+    if (now > trialEnd) {
+      return {
+        allowed: false,
+        status: "expired",
+        daysRemainingInTrial: 0,
+        reason: "Your 30-day free trial has concluded. Activate Crevix All Access for ₹199/month to continue automating your workflow.",
+      };
+    }
+    return {
+      allowed: true,
+      status: "trialing",
+      daysRemainingInTrial: daysRemaining,
+    };
+  }
+
+  if (status === "cancelled" || status === "expired" || status === "past_due") {
+    return {
+      allowed: false,
+      status,
+      reason: "Your subscription is inactive. Please renew Crevix All Access (₹199/month) to restore full automation capabilities.",
+    };
+  }
+
   return {
     allowed: true,
-    currentUsage: currentMonthlyPosts,
-    maxAllowed: limit.maxPostsPerMonth,
+    status: "trialing",
+    daysRemainingInTrial: daysRemaining,
   };
 }
 
 /**
- * Checks if a workspace can create another automation rule.
+ * Validates post scheduling under the single unified plan.
+ * Fair-use policy: Up to 500 posts/month to prevent automated API abuse.
  */
-export function checkAutomationRuleEntitlement(tier: PlanTier, currentActiveRules: number): UsageCheckResult {
-  const limit = PLAN_LIMITS[tier] || PLAN_LIMITS.free;
-  if (currentActiveRules >= limit.maxAutomationRules) {
+export function checkPostSchedulingEntitlement(
+  status: SubscriptionStatus = "trialing",
+  currentMonthlyPosts: number = 0,
+  trialEndDate?: Date | string
+): UsageCheckResult {
+  const access = checkWorkspaceAccess(status, trialEndDate);
+  if (!access.allowed) return access;
+
+  const FAIR_USE_POST_LIMIT = 500;
+  if (currentMonthlyPosts >= FAIR_USE_POST_LIMIT) {
     return {
       allowed: false,
-      currentUsage: currentActiveRules,
-      maxAllowed: limit.maxAutomationRules,
-      reason: `You have reached the maximum of ${limit.maxAutomationRules} active automation rules on the ${limit.name} tier. Upgrade for more workflows.`,
+      status: access.status,
+      reason: `Fair-use limit of ${FAIR_USE_POST_LIMIT} posts reached for this monthly billing cycle. Contact support for high-volume enterprise quotas.`,
     };
   }
-  return {
-    allowed: true,
-    currentUsage: currentActiveRules,
-    maxAllowed: limit.maxAutomationRules,
-  };
+
+  return access;
 }
 
 /**
- * Checks if a workspace can generate another AI research report.
+ * Validates automation rule creation under the single unified plan.
+ * Unlimited rules are included with Crevix All Access.
  */
-export function checkAiResearchEntitlement(tier: PlanTier, currentMonthlyReports: number): UsageCheckResult {
-  const limit = PLAN_LIMITS[tier] || PLAN_LIMITS.free;
-  if (currentMonthlyReports >= limit.maxResearchReportsPerMonth) {
+export function checkAutomationRuleEntitlement(
+  status: SubscriptionStatus = "trialing",
+  currentActiveRules: number = 0,
+  trialEndDate?: Date | string
+): UsageCheckResult {
+  const access = checkWorkspaceAccess(status, trialEndDate);
+  if (!access.allowed) return access;
+
+  // Unlimited automation rules in Crevix All Access (fair-use safety cap at 100 active rules per workspace)
+  const FAIR_USE_RULE_LIMIT = 100;
+  if (currentActiveRules >= FAIR_USE_RULE_LIMIT) {
     return {
       allowed: false,
-      currentUsage: currentMonthlyReports,
-      maxAllowed: limit.maxResearchReportsPerMonth,
-      reason: `You have used all ${limit.maxResearchReportsPerMonth} AI research reports for this month on the ${limit.name} tier. Upgrade to explore more topics.`,
+      status: access.status,
+      reason: `Workspace limit of ${FAIR_USE_RULE_LIMIT} active automation rules reached. Contact support to raise this ceiling.`,
     };
   }
-  return {
-    allowed: true,
-    currentUsage: currentMonthlyReports,
-    maxAllowed: limit.maxResearchReportsPerMonth,
-  };
+
+  return access;
+}
+
+/**
+ * Validates AI research reports under the single unified plan.
+ * Crevix All Access includes generous monthly research allowance (100 reports/mo).
+ */
+export function checkAiResearchEntitlement(
+  status: SubscriptionStatus = "trialing",
+  currentMonthlyReports: number = 0,
+  trialEndDate?: Date | string
+): UsageCheckResult {
+  const access = checkWorkspaceAccess(status, trialEndDate);
+  if (!access.allowed) return access;
+
+  const FAIR_USE_AI_LIMIT = 100;
+  if (currentMonthlyReports >= FAIR_USE_AI_LIMIT) {
+    return {
+      allowed: false,
+      status: access.status,
+      reason: `Monthly AI research quota (${FAIR_USE_AI_LIMIT} reports) reached for this cycle. Quota resets on your next monthly billing date.`,
+    };
+  }
+
+  return access;
 }

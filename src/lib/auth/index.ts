@@ -13,7 +13,7 @@ export interface CrevixWorkspaceSession {
   id: string;
   name: string;
   slug: string;
-  tier: "free" | "creator" | "pro";
+  tier: "all_access";
   role: "owner" | "admin" | "member";
 }
 
@@ -35,7 +35,7 @@ const DEFAULT_DEV_WORKSPACE: CrevixWorkspaceSession = {
   id: "00000000-0000-0000-0000-000000000002",
   name: "Acme Studio",
   slug: "acme-studio",
-  tier: "pro",
+  tier: "all_access",
   role: "owner",
 };
 

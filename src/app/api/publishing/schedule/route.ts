@@ -27,9 +27,9 @@ export async function POST(req: NextRequest) {
     const { title, caption, postType, scheduledAt, ctaKeyword } = parsed.data;
 
     // Server-side entitlement check
-    // In production, queries usage_records table for the active billing period
+    // In production, queries usage_records table and subscription status for the active billing period
     const currentPostsCount = 28; // Example current usage
-    const entitlement = checkPostSchedulingEntitlement(authContext.workspace.tier, currentPostsCount);
+    const entitlement = checkPostSchedulingEntitlement("trialing", currentPostsCount);
 
     if (!entitlement.allowed) {
       return NextResponse.json(

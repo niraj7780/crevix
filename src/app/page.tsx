@@ -11,84 +11,69 @@ import {
   Zap, 
   ShieldCheck 
 } from "lucide-react";
+import { PublicNav } from "@/components/layout/public-nav";
+import { PublicFooter } from "@/components/layout/public-footer";
+import { SoftwareAppJsonLd, OrganizationJsonLd } from "@/components/seo/JsonLd";
+import { AnimateOnScroll } from "@/components/ui/animate-on-scroll";
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-surface flex flex-col selection:bg-primary-fixed selection:text-on-primary-fixed">
-      {/* Top Navigation */}
-      <header className="sticky top-0 z-50 bg-surface/90 backdrop-blur-md border-b border-surface-container-high px-6 lg:px-12 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-on-primary font-headline font-bold text-lg shadow-sm">
-            C
-          </div>
-          <div className="flex flex-col">
-            <span className="font-headline font-bold text-lg tracking-tight text-on-surface leading-none">
-              Crevix
-            </span>
-            <span className="font-label text-[9px] uppercase tracking-widest text-on-surface-variant font-semibold">
-              Creator OS
-            </span>
-          </div>
-        </div>
+    <div className="min-h-screen bg-surface flex flex-col selection:bg-primary-fixed selection:text-on-primary-fixed relative overflow-hidden">
+      {/* Background Animated Motion Orbs */}
+      <div className="orb orb-primary w-96 h-96 -top-20 -left-20 animate-pulse-soft" />
+      <div className="orb orb-accent w-[500px] h-[500px] top-1/3 -right-32 animate-float" />
+      <div className="orb orb-primary w-80 h-80 bottom-1/4 -left-24 animate-pulse-soft" />
 
-        <nav className="hidden md:flex items-center gap-8 font-label text-xs font-semibold text-on-surface-variant">
-          <a href="#features" className="hover:text-primary transition-colors">Features</a>
-          <a href="#pipeline" className="hover:text-primary transition-colors">The Pipeline</a>
-          <a href="#automation" className="hover:text-primary transition-colors">Instagram DM Automation</a>
-          <a href="#pricing" className="hover:text-primary transition-colors">Pricing</a>
-        </nav>
+      {/* Structured SEO Data */}
+      <OrganizationJsonLd />
+      <SoftwareAppJsonLd
+        name="Crevix All Access"
+        price="199"
+        priceCurrency="INR"
+        trialPeriodDays={30}
+      />
 
-        <div className="flex items-center gap-3">
-          <Link
-            href="/login"
-            className="px-4 py-2 text-xs font-label font-semibold text-on-surface-variant hover:text-on-surface transition-colors"
-          >
-            Sign In
-          </Link>
-          <Link
-            href="/dashboard"
-            className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-primary text-on-primary font-label text-xs font-semibold hover:bg-primary-container transition-all shadow-sm"
-          >
-            <span>Launch Dashboard</span>
-            <ArrowRight className="w-3.5 h-3.5" />
-          </Link>
-        </div>
-      </header>
+      {/* Shared Public Navigation */}
+      <PublicNav />
 
       {/* Hero Section */}
       <section className="relative px-6 lg:px-12 pt-20 pb-16 max-w-6xl mx-auto flex flex-col items-center text-center">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-label text-xs font-semibold mb-6 shadow-xs border border-primary-fixed-dim/40">
+        <AnimateOnScroll className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label text-xs font-semibold mb-6 shadow-xs border border-primary-fixed-dim/40 hover-lift">
           <Sparkles className="w-3.5 h-3.5 text-primary" />
           <span>The Next Generation Creator Operating System</span>
-        </div>
+        </AnimateOnScroll>
 
-        <h1 className="font-headline text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-on-surface max-w-4xl leading-[1.15]">
-          Your entire creator workflow.{" "}
-          <span className="text-primary italic font-serif">One flow.</span>
-        </h1>
+        <AnimateOnScroll delay={100}>
+          <h1 className="font-headline text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-on-surface max-w-4xl leading-[1.15]">
+            Your entire creator workflow.{" "}
+            <span className="text-primary italic font-serif">One flow.</span>
+          </h1>
+        </AnimateOnScroll>
 
-        <p className="mt-6 font-body text-base sm:text-lg text-on-surface-variant max-w-2xl leading-relaxed">
-          Eliminate the chaos of 6 fragmented tools. Research viral ideas, generate scripts, schedule multi-platform posts, and turn Reel comments into paying DM leads automatically.
-        </p>
+        <AnimateOnScroll delay={200}>
+          <p className="mt-6 font-body text-base sm:text-lg text-on-surface-variant max-w-2xl leading-relaxed">
+            Eliminate the chaos of 6 fragmented tools. Research viral ideas, generate scripts, schedule multi-platform posts, and turn Reel comments into paying DM leads automatically.
+          </p>
+        </AnimateOnScroll>
 
-        <div className="mt-8 flex flex-col sm:flex-row items-center gap-4">
+        <AnimateOnScroll delay={300} className="mt-8 flex flex-col sm:flex-row items-center gap-4">
           <Link
-            href="/dashboard"
-            className="flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-on-primary font-label text-sm font-semibold hover:bg-primary-container transition-all shadow-md hover:shadow-lg"
+            href="/signup"
+            className="flex items-center gap-2 px-7 py-3.5 rounded-xl bg-primary text-on-primary font-label text-sm font-semibold hover:bg-primary-container transition-all shadow-md hover-lift"
           >
-            <span>Start Free Trial</span>
+            <span>Start 30-Day Free Trial</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
           <a
             href="#automation"
-            className="px-6 py-3 rounded-xl bg-surface-container-lowest border border-surface-container-high text-on-surface font-label text-sm font-semibold hover:bg-surface-container transition-colors shadow-xs"
+            className="px-6 py-3.5 rounded-xl bg-surface-container-lowest border border-surface-container-high text-on-surface font-label text-sm font-semibold hover:bg-surface-container transition-colors shadow-xs hover-glow"
           >
             See Comment-to-DM Live
           </a>
-        </div>
+        </AnimateOnScroll>
 
-        {/* Hero Visual Preview: 7-Stage Flow */}
-        <div className="mt-16 w-full p-4 sm:p-6 rounded-2xl bg-surface-container-lowest border border-surface-container-high shadow-lg">
+        {/* Hero Visual Preview: 7-Stage Flow with Stagger Animation */}
+        <AnimateOnScroll delay={400} className="mt-16 w-full p-4 sm:p-6 rounded-3xl bg-surface-container-lowest/80 backdrop-blur-md border border-surface-container-high shadow-xl">
           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 text-left">
             {[
               { step: "01", name: "Research", icon: Sparkles, desc: "AI viral hooks & niches" },
@@ -101,7 +86,7 @@ export default function HomePage() {
             ].map((item, i) => (
               <div
                 key={i}
-                className="p-3.5 rounded-xl bg-surface-container-low border border-surface-container-high hover:border-primary-container transition-all group"
+                className="p-3.5 rounded-xl bg-surface-container-low/70 border border-surface-container-high hover:border-primary hover-lift transition-all group"
               >
                 <div className="flex items-center justify-between mb-2">
                   <span className="font-mono text-[10px] font-bold text-on-surface-variant group-hover:text-primary">
@@ -114,14 +99,14 @@ export default function HomePage() {
               </div>
             ))}
           </div>
-        </div>
+        </AnimateOnScroll>
       </section>
 
       {/* Feature Deep Dive: Instagram Comment-to-DM */}
-      <section id="automation" className="py-20 px-6 lg:px-12 bg-surface-container-lowest border-y border-surface-container-high">
+      <section id="automation" className="py-20 px-6 lg:px-12 bg-surface-container-lowest/90 border-y border-surface-container-high relative">
         <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-label text-xs font-bold uppercase tracking-wider mb-4">
+          <AnimateOnScroll>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-fixed text-on-primary-fixed font-label text-xs font-bold uppercase tracking-wider mb-4 border border-primary-fixed-dim/40">
               Core Growth Engine
             </div>
             <h2 className="font-headline text-3xl sm:text-4xl font-bold text-on-surface tracking-tight leading-snug">
@@ -145,168 +130,159 @@ export default function HomePage() {
               ))}
             </div>
 
-            <div className="mt-8">
+            <div className="mt-8 flex items-center gap-4">
               <Link
-                href="/dashboard/automation"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-on-primary font-label text-xs font-semibold hover:bg-primary-container transition-all"
+                href="/instagram-dm-automation"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-on-primary font-label text-xs font-semibold hover:bg-primary-container transition-all shadow-md hover-lift"
               >
-                <span>Test Automation Simulator</span>
+                <span>Explore Comment-to-DM</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
-          </div>
+          </AnimateOnScroll>
 
           {/* Interactive Simulation Graphic */}
-          <div className="p-6 rounded-2xl bg-surface-container-low border border-surface-container-high shadow-sm space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-surface-container-high">
-              <div className="flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"></span>
-                <span className="font-label text-xs font-bold text-on-surface">Live Automation Active</span>
+          <AnimateOnScroll delay={150}>
+            <div className="p-6 rounded-3xl bg-surface-container-low border border-surface-container-high shadow-lg space-y-4 hover-glow transition-all">
+              <div className="flex items-center justify-between pb-3 border-b border-surface-container-high">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse" />
+                  <span className="font-label text-xs font-bold text-on-surface">Live Automation Active</span>
+                </div>
+                <span className="font-mono text-[11px] text-on-surface-variant">Trigger: &quot;AI&quot;</span>
               </div>
-              <span className="font-mono text-[11px] text-on-surface-variant">Trigger: &quot;AI&quot;</span>
-            </div>
 
-            {/* Comment Event */}
-            <div className="p-3 rounded-lg bg-surface-container-lowest border border-surface-container-high">
-              <div className="flex items-center justify-between text-xs font-label">
-                <span className="font-bold text-on-surface">@growth_sarah</span>
-                <span className="text-on-surface-variant text-[10px]">Just now on Reel #84</span>
+              {/* Comment Event */}
+              <div className="p-3.5 rounded-xl bg-surface-container-lowest border border-surface-container-high">
+                <div className="flex items-center justify-between text-xs font-label">
+                  <span className="font-bold text-on-surface">@growth_sarah</span>
+                  <span className="text-on-surface-variant text-[10px]">Just now on Reel #84</span>
+                </div>
+                <p className="mt-1 font-body text-xs text-on-surface-variant">
+                  &ldquo;Love this workflow! Commenting <span className="font-bold text-primary">AI</span> for the template guide!&rdquo;
+                </p>
               </div>
-              <p className="mt-1 font-body text-xs text-on-surface-variant">
-                &ldquo;Love this workflow! Commenting <span className="font-bold text-primary">AI</span> for the template guide!&rdquo;
-              </p>
-            </div>
 
-            {/* Downward Arrow */}
-            <div className="flex justify-center text-primary">
-              <ArrowRight className="w-4 h-4 rotate-90" />
-            </div>
-
-            {/* Automated DM Sent */}
-            <div className="p-3.5 rounded-lg bg-primary-fixed/30 border border-primary-fixed-dim/60">
-              <div className="flex items-center justify-between text-xs font-label mb-1">
-                <span className="font-bold text-primary">Crevix Automated DM</span>
-                <span className="text-[10px] text-primary font-mono">0.8s execution</span>
+              {/* Downward Arrow */}
+              <div className="flex justify-center text-primary">
+                <ArrowRight className="w-4 h-4 rotate-90" />
               </div>
-              <p className="font-body text-xs text-on-surface leading-relaxed">
-                &ldquo;Hey Sarah! Thanks for your comment. Here is your Notion Creator Operating System template: <span className="underline font-mono text-primary">https://crevix.io/r/guide</span> 🚀&rdquo;
-              </p>
-            </div>
 
-            {/* CRM Lead Created */}
-            <div className="p-2.5 rounded-lg bg-surface-container-lowest border border-surface-container-high flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Users className="w-4 h-4 text-tertiary" />
-                <span className="font-label text-xs font-semibold text-on-surface">Lead Created in CRM</span>
+              {/* Automated DM Sent */}
+              <div className="p-3.5 rounded-xl bg-primary-fixed/30 border border-primary-fixed-dim/60">
+                <div className="flex items-center justify-between text-xs font-label mb-1">
+                  <span className="font-bold text-primary">Crevix Automated DM</span>
+                  <span className="text-[10px] text-primary font-mono">0.8s execution</span>
+                </div>
+                <p className="font-body text-xs text-on-surface leading-relaxed">
+                  &ldquo;Hey Sarah! Thanks for your comment. Here is your Notion Creator Operating System template: <span className="underline font-mono text-primary">https://crevix.io/r/guide</span> 🚀&rdquo;
+                </p>
               </div>
-              <span className="px-2 py-0.5 rounded bg-surface-container font-mono text-[10px] text-on-surface-variant">
-                Stage: Engaged
-              </span>
+
+              {/* CRM Lead Created */}
+              <div className="p-2.5 rounded-xl bg-surface-container-lowest border border-surface-container-high flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Users className="w-4 h-4 text-tertiary" />
+                  <span className="font-label text-xs font-semibold text-on-surface">Lead Created in CRM</span>
+                </div>
+                <span className="px-2 py-0.5 rounded bg-surface-container font-mono text-[10px] text-on-surface-variant">
+                  Stage: Engaged
+                </span>
+              </div>
             </div>
-          </div>
+          </AnimateOnScroll>
         </div>
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-20 px-6 lg:px-12 max-w-6xl mx-auto w-full">
-        <div className="text-center mb-12">
+      <section id="pricing" className="py-20 px-6 lg:px-12 max-w-4xl mx-auto w-full">
+        <AnimateOnScroll className="text-center mb-12">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-fixed/40 border border-primary-fixed-dim/60 text-on-primary-fixed text-xs font-label font-bold uppercase tracking-wider mb-4">
+            <Sparkles className="w-3.5 h-3.5 text-primary" />
+            <span>One Unified Plan. Zero Upsells.</span>
+          </div>
           <h2 className="font-headline text-3xl sm:text-4xl font-bold text-on-surface tracking-tight">
-            Transparent plans for creators of all stages
+            Try Crevix All Access Free for 30 Days
           </h2>
-          <p className="mt-3 font-body text-sm text-on-surface-variant">
-            Start free, scale as your social audience and lead volume grows.
+          <p className="mt-3 font-body text-sm text-on-surface-variant max-w-xl mx-auto">
+            Experience our entire creator suite with full capabilities. No tier restrictions, no separate tool add-ons.
           </p>
-        </div>
+        </AnimateOnScroll>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Free Tier */}
-          <div className="p-6 rounded-2xl bg-surface-container-lowest border border-surface-container-high flex flex-col justify-between shadow-xs">
-            <div>
-              <div className="font-label text-xs font-bold text-on-surface-variant uppercase tracking-wider">Free</div>
-              <div className="mt-3 font-headline text-3xl font-bold text-on-surface">$0</div>
-              <p className="mt-2 font-body text-xs text-on-surface-variant">For new creators testing automations.</p>
-              <div className="mt-6 space-y-2.5 font-body text-xs text-on-surface">
-                <div className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-primary" /> 1 Connected Account</div>
-                <div className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-primary" /> 10 Scheduled Posts/mo</div>
-                <div className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-primary" /> 1 Active DM Automation</div>
-                <div className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-primary" /> 5 AI Research Reports/mo</div>
+        {/* Single Premium Pricing Card */}
+        <AnimateOnScroll delay={150}>
+          <div className="p-8 sm:p-10 rounded-3xl bg-surface-container-lowest border-2 border-primary shadow-2xl relative overflow-hidden hover-glow transition-all">
+            <div className="absolute top-0 right-0 bg-primary text-on-primary font-label text-[11px] font-bold uppercase tracking-wider py-1.5 px-6 rounded-bl-2xl shadow-sm">
+              30 Days Free
+            </div>
+
+            <div className="max-w-2xl">
+              <div className="font-label text-xs font-bold text-primary uppercase tracking-wider">
+                Complete Creator Operating System
+              </div>
+              <h3 className="mt-2 font-headline text-3xl font-bold text-on-surface">
+                Crevix All Access
+              </h3>
+
+              {/* Price Presentation */}
+              <div className="mt-4 flex flex-wrap items-baseline gap-2">
+                <span className="font-headline text-5xl font-bold text-on-surface">₹0</span>
+                <span className="font-body text-sm font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                  First 30 days free
+                </span>
+                <span className="font-body text-sm text-on-surface-variant">
+                  then <strong className="text-on-surface font-headline text-2xl">₹199</strong>/month
+                </span>
+              </div>
+
+              <p className="mt-3 font-body text-xs text-on-surface-variant leading-relaxed">
+                Full access to every Instagram automation, AI content generator, publishing queue, teleprompter, and CRM lead capture tool. Cancel online anytime before day 30 with zero charges.
+              </p>
+
+              {/* Included Features Grid */}
+              <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-body text-on-surface">
+                {[
+                  "Instagram Comment-to-DM Automation",
+                  "Unlimited Automation Rules",
+                  "AI Viral Hook & Reel Script Generator",
+                  "AI Topic Research & Trend Reports",
+                  "Multi-Platform Content Scheduler",
+                  "Visual Drag-and-Drop Calendar",
+                  "Zero-Egress Media Storage Library",
+                  "Creator CRM & CSV Lead Export",
+                  "Real-Time Reach & Engagement Analytics",
+                  "Unified Direct Message Inbox",
+                  "Visual Workflow Node Builder",
+                  "On-Screen Teleprompter Studio",
+                ].map((feat, idx) => (
+                  <div key={idx} className="flex items-center gap-2.5">
+                    <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
+                    <span>{feat}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* CTA Button */}
+              <div className="mt-8 pt-6 border-t border-surface-container-high flex flex-col sm:flex-row items-center gap-4">
+                <Link
+                  href="/signup"
+                  className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-primary text-on-primary font-label text-sm font-semibold hover:bg-primary-container transition-all shadow-md hover-lift"
+                >
+                  <span>Start 30-Day Free Trial</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <div className="flex items-center gap-2 text-xs font-body text-on-surface-variant">
+                  <ShieldCheck className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+                  <span>No charges today. Cancel with 1-click before trial ends.</span>
+                </div>
               </div>
             </div>
-            <Link
-              href="/dashboard"
-              className="mt-8 block text-center py-2.5 rounded-lg bg-surface-container-low border border-surface-container-high font-label text-xs font-semibold hover:bg-surface-container transition-colors"
-            >
-              Get Started Free
-            </Link>
           </div>
-
-          {/* Creator Tier */}
-          <div className="p-6 rounded-2xl bg-surface-container-lowest border-2 border-primary flex flex-col justify-between shadow-md relative">
-            <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-primary text-on-primary font-label text-[10px] font-bold uppercase tracking-wider">
-              Most Popular
-            </span>
-            <div>
-              <div className="font-label text-xs font-bold text-primary uppercase tracking-wider">Creator</div>
-              <div className="mt-3 font-headline text-3xl font-bold text-on-surface">$29<span className="text-sm font-normal text-on-surface-variant">/mo</span></div>
-              <p className="mt-2 font-body text-xs text-on-surface-variant">For active creators scaling their pipeline.</p>
-              <div className="mt-6 space-y-2.5 font-body text-xs text-on-surface">
-                <div className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-primary" /> 2 Connected Accounts</div>
-                <div className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-primary" /> 100 Scheduled Posts/mo</div>
-                <div className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-primary" /> 5 Active DM Automations</div>
-                <div className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-primary" /> 50 AI Research Reports/mo</div>
-                <div className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-primary" /> Creator CRM Lead Capture</div>
-              </div>
-            </div>
-            <Link
-              href="/dashboard/billing"
-              className="mt-8 block text-center py-2.5 rounded-lg bg-primary text-on-primary font-label text-xs font-semibold hover:bg-primary-container transition-all shadow-sm"
-            >
-              Start 14-Day Trial
-            </Link>
-          </div>
-
-          {/* Pro Tier */}
-          <div className="p-6 rounded-2xl bg-surface-container-lowest border border-surface-container-high flex flex-col justify-between shadow-xs">
-            <div>
-              <div className="font-label text-xs font-bold text-on-surface-variant uppercase tracking-wider">Pro Agency</div>
-              <div className="mt-3 font-headline text-3xl font-bold text-on-surface">$79<span className="text-sm font-normal text-on-surface-variant">/mo</span></div>
-              <p className="mt-2 font-body text-xs text-on-surface-variant">For multi-account agencies and power teams.</p>
-              <div className="mt-6 space-y-2.5 font-body text-xs text-on-surface">
-                <div className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-primary" /> 5 Connected Accounts</div>
-                <div className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-primary" /> 500 Scheduled Posts/mo</div>
-                <div className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-primary" /> 25 Active DM Automations</div>
-                <div className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-primary" /> 200 AI Research Reports/mo</div>
-                <div className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-primary" /> Visual Workflow Builder</div>
-                <div className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-primary" /> 5 Workspace Team Seats</div>
-              </div>
-            </div>
-            <Link
-              href="/dashboard/billing"
-              className="mt-8 block text-center py-2.5 rounded-lg bg-surface-container-low border border-surface-container-high font-label text-xs font-semibold hover:bg-surface-container transition-colors"
-            >
-              Upgrade to Pro
-            </Link>
-          </div>
-        </div>
+        </AnimateOnScroll>
       </section>
 
-      {/* Footer */}
-      <footer className="mt-auto border-t border-surface-container-high bg-surface-container-lowest px-6 lg:px-12 py-8 text-center sm:text-left">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded bg-primary-container text-on-primary font-headline font-bold text-xs flex items-center justify-center">
-              C
-            </div>
-            <span className="font-headline font-bold text-sm text-on-surface">Crevix</span>
-            <span className="text-on-surface-variant text-xs ml-2">© 2026 Crevix Inc. All rights reserved.</span>
-          </div>
-          <div className="flex items-center gap-6 font-label text-xs text-on-surface-variant">
-            <Link href="/privacy" className="hover:text-on-surface">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-on-surface">Terms of Service</Link>
-            <Link href="/dashboard" className="text-primary font-semibold">Enter Dashboard</Link>
-          </div>
-        </div>
-      </footer>
+      {/* Shared Public Footer */}
+      <PublicFooter />
     </div>
   );
 }

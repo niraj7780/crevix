@@ -4,13 +4,13 @@ import { requireWorkspaceAuth } from "@/lib/auth";
 import { createDodoCheckoutSession } from "@/lib/integrations/dodo";
 
 const checkoutSchema = z.object({
-  tier: z.enum(["creator", "pro"]),
+  plan: z.literal("all_access").default("all_access"),
 });
 
 export async function POST(req: NextRequest) {
   try {
     const authContext = await requireWorkspaceAuth();
-    const body = await req.json();
+    const body = await req.json().catch(() => ({}));
 
     const parsed = checkoutSchema.safeParse(body);
     if (!parsed.success) {
@@ -26,7 +26,6 @@ export async function POST(req: NextRequest) {
     const session = await createDodoCheckoutSession({
       workspaceId: authContext.workspace.id,
       customerEmail: authContext.user.email,
-      tier: parsed.data.tier,
       returnUrl,
     });
 

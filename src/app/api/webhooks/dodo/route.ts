@@ -21,24 +21,36 @@ export async function POST(req: NextRequest) {
 
     console.log(`[Dodo Webhook Ingestion] Event: ${eventType}, Subscription: ${subscriptionId}, Workspace: ${workspaceId}`);
 
-    // Handle subscription lifecycles
+    // Handle single unified subscription lifecycles
     switch (eventType) {
-      case "subscription.active":
+      case "subscription.trial_started":
       case "subscription.created":
-      case "subscription.renewed":
-        // Sync subscription status and update workspace.tier
+        // Workspace in 30-day free trial
+        console.log(`[Dodo] Workspace ${workspaceId} entered 30-day trial for Crevix All Access.`);
         break;
+
+      case "subscription.active":
+      case "subscription.renewed":
+        // Workspace successfully converted or renewed at ₹199/month
+        console.log(`[Dodo] Workspace ${workspaceId} subscription active (₹199/month).`);
+        break;
+
       case "subscription.cancelled":
       case "subscription.expired":
-        // Downgrade workspace.tier to 'free'
+      case "payment.failed":
+        // Subscription cancelled or payment failed
+        console.log(`[Dodo] Workspace ${workspaceId} subscription expired or cancelled.`);
         break;
+
       default:
+        console.log(`[Dodo] Unhandled event type: ${eventType}`);
         break;
     }
 
     return NextResponse.json({
       success: true,
       processed: true,
+      plan: "all_access",
       eventId: payload.id || `dodo_ev_${Date.now()}`,
     });
   } catch (err: any) {

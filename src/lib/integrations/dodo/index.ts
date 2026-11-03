@@ -23,7 +23,7 @@ export function isDodoConfigured(): boolean {
 }
 
 /**
- * Verifies inbound Dodo Payments webhook HMAC signature.
+ * Verifies inbound Dodo Payments webhook HMAC-SHA256 signature.
  */
 export function verifyDodoWebhookSignature(rawBody: string, signatureHeader: string | null): boolean {
   const config = getDodoConfig();
@@ -53,7 +53,6 @@ export function verifyDodoWebhookSignature(rawBody: string, signatureHeader: str
 export interface CheckoutSessionOptions {
   workspaceId: string;
   customerEmail: string;
-  tier: "creator" | "pro";
   returnUrl: string;
 }
 
@@ -61,22 +60,34 @@ export interface CheckoutSessionResponse {
   checkoutUrl: string;
   sessionId: string;
   isMock: boolean;
+  trialDays: number;
+  monthlyAmountInr: number;
+  firstChargeDate: string;
+  currency: "INR";
 }
 
 /**
- * Creates a Dodo Payments checkout session for subscription purchasing.
+ * Creates a Dodo Payments checkout session for Crevix All Access (30 Days Free Trial, then ₹199/month).
  */
 export async function createDodoCheckoutSession(
   options: CheckoutSessionOptions
 ): Promise<CheckoutSessionResponse> {
   const config = getDodoConfig();
 
+  // Calculate 30-day trial end date / first charge date
+  const now = new Date();
+  const firstChargeDate = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000).toISOString();
+
   if (!isDodoConfigured()) {
     // Return explicit mock checkout for development
     return {
-      checkoutUrl: `/dashboard/billing?mock_checkout_success=true&tier=${options.tier}`,
+      checkoutUrl: `/dashboard/billing?mock_checkout_success=true&plan=all_access`,
       sessionId: `mock_dodo_sess_${crypto.randomUUID()}`,
       isMock: true,
+      trialDays: 30,
+      monthlyAmountInr: 199,
+      firstChargeDate,
+      currency: "INR",
     };
   }
 
@@ -84,9 +95,7 @@ export async function createDodoCheckoutSession(
     ? "https://live.dodopayments.com" 
     : "https://test.dodopayments.com";
 
-  const productId = options.tier === "pro" 
-    ? process.env.DODO_PRODUCT_PRO_ID || "p_pro" 
-    : process.env.DODO_PRODUCT_CREATOR_ID || "p_creator";
+  const productId = process.env.DODO_PRODUCT_ALL_ACCESS_ID || "p_crevix_all_access";
 
   const response = await fetch(`${baseUrl}/subscriptions`, {
     method: "POST",
@@ -99,9 +108,15 @@ export async function createDodoCheckoutSession(
         email: options.customerEmail,
       },
       product_id: productId,
+      currency: "INR",
+      trial_period_days: 30,
       return_url: options.returnUrl,
       metadata: {
         workspace_id: options.workspaceId,
+        plan_code: "all_access",
+        monthly_price_inr: 199,
+        trial_days: 30,
+        authorized_by_user: true,
       },
     }),
   });
@@ -115,5 +130,9 @@ export async function createDodoCheckoutSession(
     checkoutUrl: data.payment_link,
     sessionId: data.subscription_id,
     isMock: false,
+    trialDays: 30,
+    monthlyAmountInr: 199,
+    firstChargeDate,
+    currency: "INR",
   };
 }

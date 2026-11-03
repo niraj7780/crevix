@@ -44,14 +44,14 @@ test("Neon PostgreSQL: Connection String & Database Connectivity", async (t) => 
 
   const sql = neon(dbUrl);
 
-  // Helper with 1 retry for cold-start serverless compute resumes
-  async function queryWithRetry(fn, retries = 2) {
+  // Helper with retries for cold-start serverless compute resumes
+  async function queryWithRetry(fn, retries = 3) {
     for (let attempt = 1; attempt <= retries; attempt++) {
       try {
         return await fn();
       } catch (err) {
         if (attempt === retries) throw err;
-        await new Promise((r) => setTimeout(r, 1000));
+        await new Promise((r) => setTimeout(r, 1500));
       }
     }
   }

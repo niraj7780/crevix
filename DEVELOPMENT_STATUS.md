@@ -23,7 +23,8 @@
 | **Phase 10** | Rebrand to Crevix & Phase 2 Integration & Security Audit | **COMPLETED** | Rebrand complete, 4 audit deliverables in `docs/` signed off |
 | **Phase 11** | Real Infrastructure: Clerk Authentication | **COMPLETED** | Live handshake passed (HTTP 200), JWKS keys verified, routes verified |
 | **Phase 12** | Real Infrastructure: Neon PostgreSQL Database | **COMPLETED** | 20 tables migrated, 20 PKs, 27 FKs, 42 indexes, tenant isolation verified |
-| **Phase 13** | Real Infrastructure: Cloudflare R2 Object Storage | **IN PROGRESS** | Awaiting R2 bucket credentials |
+| **Phase 13** | Real Infrastructure: Cloudflare R2 Object Storage | **COMPLETED** | Bucket `crevix-bu` verified; upload/download/delete verified with 0 residual state |
+| **Phase 14** | Real Infrastructure: Meta Instagram Graph API | **IN PROGRESS** | Awaiting Meta Graph API App credentials |
 | **Phase 14** | Real Infrastructure: Meta Instagram Graph API | **QUEUED** | Awaiting Phase 13 completion |
 | **Phase 15** | Real Infrastructure: Dodo Payments (₹199/mo) | **QUEUED** | Awaiting Phase 14 completion |
 

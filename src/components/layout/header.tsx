@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { UserButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import { 
   ChevronRight, 
   Search, 
@@ -76,13 +77,31 @@ export function Header() {
           <span>New Post</span>
         </Link>
 
-        {/* Profile Avatar */}
+        {/* Profile Avatar / User Controls */}
         <div className="flex items-center pl-1">
-          <img
-            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&h=80&q=80"
-            alt="Profile"
-            className="w-8 h-8 rounded-full object-cover ring-1 ring-surface-container-high"
-          />
+          {process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY &&
+          process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY.startsWith("pk_") &&
+          !process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY.includes("sample_key") ? (
+            <>
+              <SignedIn>
+                <UserButton afterSignOutUrl="/login" />
+              </SignedIn>
+              <SignedOut>
+                <Link
+                  href="/login"
+                  className="px-3 py-1.5 rounded-lg bg-surface-container border border-surface-container-high font-label text-xs font-semibold text-on-surface hover:bg-surface-container-high transition-colors"
+                >
+                  Sign In
+                </Link>
+              </SignedOut>
+            </>
+          ) : (
+            <img
+              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&h=80&q=80"
+              alt="Profile"
+              className="w-8 h-8 rounded-full object-cover ring-1 ring-surface-container-high"
+            />
+          )}
         </div>
       </div>
     </header>

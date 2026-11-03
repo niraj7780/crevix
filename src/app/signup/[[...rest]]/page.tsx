@@ -1,6 +1,7 @@
 import { SignUp } from "@clerk/nextjs";
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { Suspense } from "react";
 
 export default function SignUpPage() {
   const clerkKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
@@ -24,7 +25,9 @@ export default function SignUpPage() {
 
         {isClerkActive ? (
           <div className="flex justify-center">
-            <SignUp routing="path" path="/signup" signInUrl="/login" />
+            <Suspense fallback={<div className="text-xs font-label text-on-surface-variant">Loading registration...</div>}>
+              <SignUp routing="path" path="/signup" signInUrl="/login" />
+            </Suspense>
           </div>
         ) : (
           <div className="p-6 rounded-2xl bg-surface-container-lowest border border-surface-container-high shadow-md space-y-6">

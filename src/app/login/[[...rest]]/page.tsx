@@ -1,6 +1,7 @@
 import { SignIn } from "@clerk/nextjs";
 import Link from "next/link";
-import { ArrowRight, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
+import { Suspense } from "react";
 
 export default function LoginPage() {
   const clerkKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
@@ -25,7 +26,9 @@ export default function LoginPage() {
 
         {isClerkActive ? (
           <div className="flex justify-center">
-            <SignIn routing="path" path="/login" signUpUrl="/signup" />
+            <Suspense fallback={<div className="text-xs font-label text-on-surface-variant">Loading sign in...</div>}>
+              <SignIn routing="path" path="/login" signUpUrl="/signup" />
+            </Suspense>
           </div>
         ) : (
           /* Development / Sandbox Mode Card */
@@ -69,20 +72,16 @@ export default function LoginPage() {
               </Link>
             </div>
 
-            <div className="pt-3 border-t border-surface-container-high text-center">
-              <span className="font-body text-[11px] text-on-surface-variant">
-                To connect production Clerk auth, configure keys in <code className="font-mono text-primary">.env.local</code>.
-              </span>
+            <div className="pt-4 border-t border-surface-container-high text-center">
+              <p className="font-body text-xs text-on-surface-variant">
+                Need to create a new workspace?{" "}
+                <Link href="/signup" className="text-primary font-semibold hover:underline">
+                  Sign up
+                </Link>
+              </p>
             </div>
           </div>
         )}
-
-        <div className="mt-8 text-center text-xs font-label text-on-surface-variant">
-          Don&apos;t have an account?{" "}
-          <Link href="/signup" className="text-primary font-semibold hover:underline">
-            Create account
-          </Link>
-        </div>
       </div>
     </div>
   );

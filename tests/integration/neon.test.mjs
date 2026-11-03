@@ -42,13 +42,22 @@ test("Neon PostgreSQL: Connection String & Database Connectivity", async (t) => 
     );
   });
 
-  await t.test("2. Live Neon PostgreSQL handshake (SELECT 1)", async () => {
-    if (!dbUrl || dbUrl.includes("sample") || dbUrl.includes("localhost")) {
-      assert.fail("Skipping live database query because DATABASE_URL is not configured.");
-    }
+  const sql = neon(dbUrl);
 
-    const sql = neon(dbUrl);
-    const result = await sql`SELECT 1 as connected, NOW() as server_time;`;
+  // Helper with 1 retry for cold-start serverless compute resumes
+  async function queryWithRetry(fn, retries = 2) {
+    for (let attempt = 1; attempt <= retries; attempt++) {
+      try {
+        return await fn();
+      } catch (err) {
+        if (attempt === retries) throw err;
+        await new Promise((r) => setTimeout(r, 1000));
+      }
+    }
+  }
+
+  await t.test("2. Live Neon PostgreSQL handshake (SELECT 1)", async () => {
+    const result = await queryWithRetry(() => sql`SELECT 1 as connected, NOW() as server_time;`);
 
     assert.ok(Array.isArray(result) && result.length > 0, "Database must return query results array");
     assert.equal(result[0].connected, 1, "Handshake query SELECT 1 must return 1");
@@ -56,17 +65,14 @@ test("Neon PostgreSQL: Connection String & Database Connectivity", async (t) => 
   });
 
   await t.test("3. Schema tables introspection check", async () => {
-    if (!dbUrl || dbUrl.includes("sample") || dbUrl.includes("localhost")) {
-      assert.fail("Skipping schema introspection because DATABASE_URL is not configured.");
-    }
-
-    const sql = neon(dbUrl);
-    const tables = await sql`
+    const tables = await queryWithRetry(() => sql`
       SELECT table_name 
       FROM information_schema.tables 
-      WHERE table_schema = 'public';
-    `;
+      WHERE table_schema = 'public'
+      ORDER BY table_name;
+    `);
 
     assert.ok(Array.isArray(tables), "Must return tables list from information_schema");
+    assert.ok(tables.length >= 20, `Expected at least 20 application tables, found ${tables.length}`);
   });
 });

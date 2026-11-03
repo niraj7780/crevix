@@ -21,8 +21,8 @@
 | **Phase 8** | Dodo Payments & Centralized Usage Entitlements | **COMPLETED** | Quota meters, server entitlement guard, checkout routes |
 | **Phase 9** | Quality Assurance & Production Verification | **COMPLETED** | Unit test suite passing (6/6 tests), Next.js build (41/41 pages) |
 | **Phase 10** | Rebrand to Crevix & Phase 2 Integration & Security Audit | **COMPLETED** | Rebrand complete, 4 audit deliverables in `docs/` signed off |
-| **Phase 11** | Real Infrastructure: Clerk Authentication | **IN PROGRESS** | Publishable key verified; awaiting unmasked `CLERK_SECRET_KEY` |
-| **Phase 12** | Real Infrastructure: Neon PostgreSQL Database | **QUEUED** | Awaiting Phase 11 completion |
+| **Phase 11** | Real Infrastructure: Clerk Authentication | **COMPLETED** | Live handshake passed (HTTP 200), JWKS keys verified, routes verified |
+| **Phase 12** | Real Infrastructure: Neon PostgreSQL Database | **IN PROGRESS** | Connection test & migration validation |
 | **Phase 13** | Real Infrastructure: Cloudflare R2 Object Storage | **QUEUED** | Awaiting Phase 12 completion |
 | **Phase 14** | Real Infrastructure: Meta Instagram Graph API | **QUEUED** | Awaiting Phase 13 completion |
 | **Phase 15** | Real Infrastructure: Dodo Payments (₹199/mo) | **QUEUED** | Awaiting Phase 14 completion |

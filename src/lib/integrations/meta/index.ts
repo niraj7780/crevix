@@ -31,8 +31,10 @@ export function isMetaConfigured(): boolean {
 export function verifyMetaWebhookSignature(rawBody: string, signatureHeader: string | null): boolean {
   const config = getMetaConfig();
   if (!config.appSecret || config.appSecret.includes("sample")) {
-    // In local development sandbox mode, permit unsigned requests but flag as unverified
-    return true;
+    if (process.env.NODE_ENV === "production") {
+      return false; // Zero-trust: Fail-closed in production if secret is unconfigured
+    }
+    return true; // Local development sandbox mode
   }
 
   if (!signatureHeader) {

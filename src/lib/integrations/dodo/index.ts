@@ -28,7 +28,10 @@ export function isDodoConfigured(): boolean {
 export function verifyDodoWebhookSignature(rawBody: string, signatureHeader: string | null): boolean {
   const config = getDodoConfig();
   if (!config.webhookKey || config.webhookKey.includes("sample")) {
-    return true; // Local development bypass
+    if (process.env.NODE_ENV === "production") {
+      return false; // Zero-trust: Fail-closed in production if secret is unconfigured
+    }
+    return true; // Local development sandbox mode
   }
 
   if (!signatureHeader) {

@@ -15,13 +15,16 @@ export default clerkMiddleware((auth, req) => {
     !secretKey.includes("sample_key") &&
     secretKey.startsWith("sk_");
 
-  if (!isClerkActive) {
-    // Development mode bypass allows instant preview and testing without waiting for live keys
-    return NextResponse.next();
-  }
-
   if (isProtectedRoute(req)) {
-    auth().protect();
+    if (process.env.NODE_ENV === "production" && !isClerkActive) {
+      // In production, unconfigured authentication must redirect to login with no bypass
+      const loginUrl = new URL("/login", req.url);
+      return NextResponse.redirect(loginUrl);
+    }
+
+    if (isClerkActive) {
+      auth().protect();
+    }
   }
 
   return NextResponse.next();

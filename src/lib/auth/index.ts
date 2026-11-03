@@ -51,6 +51,9 @@ export async function requireWorkspaceAuth(): Promise<WorkspaceAuthContext> {
     clerkPublishableKey.startsWith("pk_");
 
   if (!isClerkConfigured) {
+    if (process.env.NODE_ENV === "production") {
+      throw new Error("UNAUTHORIZED: Clerk authentication is required in production environments.");
+    }
     // Development fallback with Elena Rostova profile from Google Stitch design
     return {
       user: DEFAULT_DEV_USER,
@@ -63,7 +66,14 @@ export async function requireWorkspaceAuth(): Promise<WorkspaceAuthContext> {
     const { userId } = await auth();
 
     if (!userId) {
-      throw new Error("UNAUTHORIZED: No active Clerk authentication session.");
+      if (process.env.NODE_ENV === "production") {
+        throw new Error("UNAUTHORIZED: No active Clerk authentication session.");
+      }
+      return {
+        user: DEFAULT_DEV_USER,
+        workspace: DEFAULT_DEV_WORKSPACE,
+        isMockAuth: true,
+      };
     }
 
     // Resolving workspace selection from headers or cookies
@@ -85,7 +95,10 @@ export async function requireWorkspaceAuth(): Promise<WorkspaceAuthContext> {
       isMockAuth: false,
     };
   } catch (error) {
-    // If Clerk middleware is not active or during build prerender, return safe fallback
+    if (process.env.NODE_ENV === "production") {
+      throw new Error("UNAUTHORIZED: Session verification failed in production.");
+    }
+    // Development fallback
     return {
       user: DEFAULT_DEV_USER,
       workspace: DEFAULT_DEV_WORKSPACE,

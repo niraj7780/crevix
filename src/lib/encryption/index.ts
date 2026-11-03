@@ -5,7 +5,7 @@ const DEFAULT_SECRET = "e4d2a1b9c8f7e6d5c4b3a291807f6e5d4c3b2a109876543210fedcba
 
 function getKey(): Buffer {
   const secret = process.env.ENCRYPTION_SECRET_KEY || DEFAULT_SECRET;
-  return crypto.scryptSync(secret, "omniflow-salt", 32);
+  return crypto.scryptSync(secret, "crevix-salt", 32);
 }
 
 export interface EncryptedPayload {

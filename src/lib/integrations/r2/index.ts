@@ -4,8 +4,8 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 const accountId = process.env.R2_ACCOUNT_ID;
 const accessKeyId = process.env.R2_ACCESS_KEY_ID;
 const secretAccessKey = process.env.R2_SECRET_ACCESS_KEY;
-const bucketName = process.env.R2_BUCKET_NAME || "omniflow-media-dev";
-const publicUrl = process.env.R2_PUBLIC_URL || "https://media.omniflow.io";
+const bucketName = process.env.R2_BUCKET_NAME || "crevix-media-dev";
+const publicUrl = process.env.R2_PUBLIC_URL || "https://media.crevix.io";
 
 export const isR2Configured = Boolean(
   accountId &&

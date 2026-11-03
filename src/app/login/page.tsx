@@ -13,9 +13,9 @@ export default function LoginPage() {
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2.5 mb-3">
             <div className="w-9 h-9 rounded-xl bg-primary-container flex items-center justify-center text-on-primary font-headline font-bold text-xl shadow-sm">
-              O
+              C
             </div>
-            <span className="font-headline font-bold text-2xl text-on-surface tracking-tight">Omniflow</span>
+            <span className="font-headline font-bold text-2xl text-on-surface tracking-tight">Crevix</span>
           </Link>
           <h1 className="font-headline text-2xl font-bold text-on-surface">Welcome back</h1>
           <p className="font-body text-xs text-on-surface-variant mt-1">
@@ -42,7 +42,7 @@ export default function LoginPage() {
                 </label>
                 <input
                   type="email"
-                  defaultValue="elena@omniflow.io"
+                  defaultValue="elena@crevix.io"
                   readOnly
                   className="w-full px-3.5 py-2.5 rounded-lg bg-surface-container-low border border-surface-container-high text-xs font-body text-on-surface focus:outline-none"
                 />

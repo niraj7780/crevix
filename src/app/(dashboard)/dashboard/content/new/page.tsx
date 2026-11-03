@@ -35,7 +35,7 @@ export default function ContentStudioNewPage() {
     `[0:00 - 0:03 HOOK]: "Most creators spend 4 hours making content. I automated 90% of it with this single setup."\n\n[0:03 - 0:15 PROBLEM]: "Here is why: when you post without an automated lead funnel, 98% of people who like your video never visit your profile or buy your product."\n\n[0:15 - 0:40 THE SOLUTION]: "Instead, build a simple comment-to-DM workflow. When someone comments a single keyword, your system instantly sends them the resource link in their DMs while they are still watching."\n\n[0:40 - 1:00 CTA]: "Comment 'FLOW' below and I'll send you the entire workflow setup right now."`
   );
   const [caption, setCaption] = useState(
-    `Stop leaving 80% of your creator revenue on the table 📌\n\nWhen someone watches your Reel, you have a 30-second window to capture them as a qualified lead.\n\n👇 Comment "FLOW" below and I'll immediately send you the complete Notion Guide + Automation Blueprint in your DMs!\n\n#creatorbusiness #automation #reeltips #omniflow`
+    `Stop leaving 80% of your creator revenue on the table 📌\n\nWhen someone watches your Reel, you have a 30-second window to capture them as a qualified lead.\n\n👇 Comment "FLOW" below and I'll immediately send you the complete Notion Guide + Automation Blueprint in your DMs!\n\n#creatorbusiness #automation #reeltips #crevix`
   );
   const [ctaKeyword, setCtaKeyword] = useState("FLOW");
 
@@ -238,7 +238,7 @@ export default function ContentStudioNewPage() {
                 Comment-to-DM Trigger Keyword
               </label>
               <p className="font-body text-[11px] text-on-surface-variant">
-                When a viewer comments this keyword on your Reel, Omniflow automatically DMs them your resource link.
+                When a viewer comments this keyword on your Reel, Crevix automatically DMs them your resource link.
               </p>
               <div className="flex items-center gap-2">
                 <input

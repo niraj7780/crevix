@@ -4,6 +4,6 @@ export async function PUT(req: NextRequest) {
   // Simulates successful upload in local mock mode
   return NextResponse.json({
     success: true,
-    message: "File received successfully by Omniflow Development Mock Storage.",
+    message: "File received successfully by Crevix Development Mock Storage.",
   });
 }

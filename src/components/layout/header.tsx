@@ -30,7 +30,7 @@ export function Header() {
       <div className="flex items-center gap-4 min-w-0">
         <nav className="flex items-center gap-1.5 font-label text-xs">
           <Link href="/dashboard" className="text-on-surface-variant hover:text-on-surface transition-colors">
-            Omniflow
+            Crevix
           </Link>
           <ChevronRight className="w-3.5 h-3.5 text-outline-variant" />
           <span className="text-on-surface font-semibold truncate font-headline italic">

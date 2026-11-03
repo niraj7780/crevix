@@ -37,7 +37,7 @@ const INITIAL_CONVERSATIONS: Conversation[] = [
     stage: "Qualified",
     messages: [
       { sender: "contact", text: "AI", time: "12m ago" },
-      { sender: "creator", text: "Hey Sarah! Thanks for your comment. Here is your Notion Creator Operating System guide: https://omniflow.io/r/guide 🚀", time: "11m ago" },
+      { sender: "creator", text: "Hey Sarah! Thanks for your comment. Here is your Notion Creator Operating System guide: https://crevix.io/r/guide 🚀", time: "11m ago" },
       { sender: "contact", text: "Thanks so much! Just downloaded the Notion template.", time: "10m ago" },
     ],
   },
@@ -52,7 +52,7 @@ const INITIAL_CONVERSATIONS: Conversation[] = [
     stage: "Engaged",
     messages: [
       { sender: "contact", text: "FLOW", time: "1h ago" },
-      { sender: "creator", text: "Hey David! Here is the blueprint guide: https://omniflow.io/r/flow", time: "55m ago" },
+      { sender: "creator", text: "Hey David! Here is the blueprint guide: https://crevix.io/r/flow", time: "55m ago" },
       { sender: "contact", text: "Do you have an agency tier for multiple client accounts?", time: "45m ago" },
     ],
   },
@@ -67,7 +67,7 @@ const INITIAL_CONVERSATIONS: Conversation[] = [
     stage: "Customer",
     messages: [
       { sender: "contact", text: "CHECKLIST", time: "3h ago" },
-      { sender: "creator", text: "Hey Jessica! Here is your checklist: https://omniflow.io/r/checklist", time: "3h ago" },
+      { sender: "creator", text: "Hey Jessica! Here is your checklist: https://crevix.io/r/checklist", time: "3h ago" },
       { sender: "contact", text: "Awesome workflow, implemented it on my latest Reel!", time: "2h ago" },
     ],
   },

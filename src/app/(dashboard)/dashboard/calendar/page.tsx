@@ -73,7 +73,7 @@ const INITIAL_SCHEDULE: ScheduledItem[] = [
     id: "5",
     day: 10,
     time: "11:00 AM",
-    title: "How I Scale Creator Revenue with Omniflow",
+    title: "How I Scale Creator Revenue with Crevix",
     type: "carousel",
     account: "@elenacreates",
     status: "scheduled",

@@ -1,7 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { headers, cookies } from "next/headers";
 
-export interface OmniflowUserSession {
+export interface CrevixUserSession {
   id: string;
   clerkUserId: string;
   email: string;
@@ -9,7 +9,7 @@ export interface OmniflowUserSession {
   avatarUrl: string;
 }
 
-export interface OmniflowWorkspaceSession {
+export interface CrevixWorkspaceSession {
   id: string;
   name: string;
   slug: string;
@@ -18,20 +18,20 @@ export interface OmniflowWorkspaceSession {
 }
 
 export interface WorkspaceAuthContext {
-  user: OmniflowUserSession;
-  workspace: OmniflowWorkspaceSession;
+  user: CrevixUserSession;
+  workspace: CrevixWorkspaceSession;
   isMockAuth: boolean;
 }
 
-const DEFAULT_DEV_USER: OmniflowUserSession = {
+const DEFAULT_DEV_USER: CrevixUserSession = {
   id: "00000000-0000-0000-0000-000000000001",
   clerkUserId: "user_dev_elenarostova",
-  email: "elena@omniflow.io",
+  email: "elena@crevix.io",
   fullName: "Elena Rostova",
   avatarUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuAZx6O1UdtZ5UKUokHwvsKK9qVG9terDlEWMB33ZbbDyd8kbBY_EJbvm70wl7bhLO-gJh5D108LAY1Kd3vFYeLWg0lUkrrioTAP6AGTSEBJdn5zNLamJ6Dt2rqb8PdS-eY87nrMCa_zn4KCFIhAdy5CfrfRKIXG6FNDFNYdelmQpSeemu18vxDK73z7opLHDrK5qia1y9mz6L9YgeeZvnThLcwMFUx3r8Q5R40BShE",
 };
 
-const DEFAULT_DEV_WORKSPACE: OmniflowWorkspaceSession = {
+const DEFAULT_DEV_WORKSPACE: CrevixWorkspaceSession = {
   id: "00000000-0000-0000-0000-000000000002",
   name: "Acme Studio",
   slug: "acme-studio",
@@ -68,13 +68,13 @@ export async function requireWorkspaceAuth(): Promise<WorkspaceAuthContext> {
 
     // Resolving workspace selection from headers or cookies
     const cookieStore = cookies();
-    const activeWorkspaceId = cookieStore.get("omniflow_active_workspace")?.value || DEFAULT_DEV_WORKSPACE.id;
+    const activeWorkspaceId = cookieStore.get("crevix_active_workspace")?.value || DEFAULT_DEV_WORKSPACE.id;
 
     return {
       user: {
         id: userId,
         clerkUserId: userId,
-        email: "creator@omniflow.io",
+        email: "creator@crevix.io",
         fullName: "Creator",
         avatarUrl: DEFAULT_DEV_USER.avatarUrl,
       },

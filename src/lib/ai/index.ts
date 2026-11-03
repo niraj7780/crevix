@@ -99,7 +99,7 @@ export async function generateContentScript(
     bodyScript: `[0:00 - 0:03 HOOK]: (Talking to camera with fast pacing)\n"${chosenHook}"\n\n[0:03 - 0:15 PROBLEM]:\n"Here is why: when you post without an automated lead funnel, 98% of people who like your video never visit your profile or buy your product."\n\n[0:15 - 0:40 THE SOLUTION]:\n"Instead, build a simple comment-to-DM workflow. When someone comments a single keyword, your system instantly sends them the resource link in their DMs while they are still watching."\n\n[0:40 - 0:50 PROOF & BENEFIT]:\n"This increased our lead capture rate by 340% without spending a dime on ads."\n\n[0:50 - 1:00 CALL TO ACTION]:\n"Comment '${params.niche.toUpperCase()}' below and I'll send you the entire workflow setup right now."`,
     callToAction: `Comment "${params.niche.toUpperCase()}" below and I'll send you the setup directly to your DMs!`,
     caption: `${chosenHook}\n\nSwipe through or read below for the complete breakdown on how we scaled this month.\n\n👇 Drop the keyword "${params.niche.toUpperCase()}" in the comments and I will DM you the exact Notion setup guide!`,
-    hashtags: [`#${params.niche.toLowerCase()}growth`, "#reeltips", "#creatorbusiness", "#marketingautomation", "#omniflow"],
+    hashtags: [`#${params.niche.toLowerCase()}growth`, "#reeltips", "#creatorbusiness", "#marketingautomation", "#crevix"],
   };
 }
 

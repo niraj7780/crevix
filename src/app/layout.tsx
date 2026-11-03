@@ -3,7 +3,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Omniflow — Your entire creator workflow. One flow.",
+  title: "Crevix — Your entire creator workflow. One flow.",
   description: "AI-powered creator automation SaaS. Research, create, schedule, publish, automate Instagram DM, and capture leads in one unified platform.",
 };
 

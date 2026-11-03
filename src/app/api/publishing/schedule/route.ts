@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
         title,
         scheduledAt,
         status: "scheduled",
-        message: "Publication scheduled successfully into Omniflow queue.",
+        message: "Publication scheduled successfully into Crevix queue.",
       },
     });
   } catch (error: any) {

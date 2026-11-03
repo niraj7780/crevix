@@ -19,11 +19,11 @@ export default function HomePage() {
       <header className="sticky top-0 z-50 bg-surface/90 backdrop-blur-md border-b border-surface-container-high px-6 lg:px-12 h-16 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-on-primary font-headline font-bold text-lg shadow-sm">
-            O
+            C
           </div>
           <div className="flex flex-col">
             <span className="font-headline font-bold text-lg tracking-tight text-on-surface leading-none">
-              Omniflow
+              Crevix
             </span>
             <span className="font-label text-[9px] uppercase tracking-widest text-on-surface-variant font-semibold">
               Creator OS
@@ -128,7 +128,7 @@ export default function HomePage() {
               Turn viral Reel comments into qualified leads in 5 seconds.
             </h2>
             <p className="mt-4 font-body text-sm sm:text-base text-on-surface-variant leading-relaxed">
-              When a Reel blows up with 1,000 comments, manual copy-pasting gets your account flagged. Omniflow connects directly with official Meta APIs to automatically deliver links and capture CRM contacts compliant with Instagram policies.
+              When a Reel blows up with 1,000 comments, manual copy-pasting gets your account flagged. Crevix connects directly with official Meta APIs to automatically deliver links and capture CRM contacts compliant with Instagram policies.
             </p>
 
             <div className="mt-6 space-y-3">
@@ -185,11 +185,11 @@ export default function HomePage() {
             {/* Automated DM Sent */}
             <div className="p-3.5 rounded-lg bg-primary-fixed/30 border border-primary-fixed-dim/60">
               <div className="flex items-center justify-between text-xs font-label mb-1">
-                <span className="font-bold text-primary">Omniflow Automated DM</span>
+                <span className="font-bold text-primary">Crevix Automated DM</span>
                 <span className="text-[10px] text-primary font-mono">0.8s execution</span>
               </div>
               <p className="font-body text-xs text-on-surface leading-relaxed">
-                &ldquo;Hey Sarah! Thanks for your comment. Here is your Notion Creator Operating System template: <span className="underline font-mono text-primary">https://omniflow.io/r/guide</span> 🚀&rdquo;
+                &ldquo;Hey Sarah! Thanks for your comment. Here is your Notion Creator Operating System template: <span className="underline font-mono text-primary">https://crevix.io/r/guide</span> 🚀&rdquo;
               </p>
             </div>
 
@@ -295,10 +295,10 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <div className="w-6 h-6 rounded bg-primary-container text-on-primary font-headline font-bold text-xs flex items-center justify-center">
-              O
+              C
             </div>
-            <span className="font-headline font-bold text-sm text-on-surface">Omniflow</span>
-            <span className="text-on-surface-variant text-xs ml-2">© 2026 Omniflow Inc. All rights reserved.</span>
+            <span className="font-headline font-bold text-sm text-on-surface">Crevix</span>
+            <span className="text-on-surface-variant text-xs ml-2">© 2026 Crevix Inc. All rights reserved.</span>
           </div>
           <div className="flex items-center gap-6 font-label text-xs text-on-surface-variant">
             <Link href="/privacy" className="hover:text-on-surface">Privacy Policy</Link>

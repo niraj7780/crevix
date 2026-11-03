@@ -40,7 +40,7 @@ export async function POST(req: NextRequest) {
     // Dynamic variable interpolation
     const renderedDM = dmTemplate
       .replace(/\{\{user\.name\}\}/g, commenterUsername)
-      .replace(/\{\{resource\.url\}\}/g, "https://omniflow.io/r/creator-guide");
+      .replace(/\{\{resource\.url\}\}/g, "https://crevix.io/r/creator-guide");
 
     const executionLog = {
       executionId: crypto.randomUUID(),

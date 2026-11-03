@@ -16,7 +16,7 @@ import {
 export default function WorkspaceSettingsPage() {
   const [wsName, setWsName] = useState("Acme Studio");
   const [creatorName, setCreatorName] = useState("Elena Rostova");
-  const [creatorEmail, setCreatorEmail] = useState("elena@omniflow.io");
+  const [creatorEmail, setCreatorEmail] = useState("elena@crevix.io");
   const [aiProvider, setAiProvider] = useState("gemini");
   const [byokKey, setByokKey] = useState("AIzaSyD-sample-encrypted-key-928");
   const [savedSuccess, setSavedSuccess] = useState(false);

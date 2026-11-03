@@ -87,11 +87,11 @@ export function Sidebar() {
         <div className="h-16 px-4 flex items-center justify-between border-b border-surface-container-high bg-surface-container-lowest">
           <Link href="/dashboard" className="flex items-center gap-2.5 min-w-0">
             <div className="w-7 h-7 rounded-lg bg-primary-container text-on-primary font-headline font-bold text-sm flex items-center justify-center shadow-xs">
-              O
+              C
             </div>
             <div className="flex flex-col min-w-0">
               <span className="font-headline font-semibold text-base text-on-surface tracking-normal truncate leading-none">
-                Omniflow
+                Crevix
               </span>
               <span className="font-label text-[10px] text-on-surface-variant uppercase tracking-widest mt-1">
                 Automate

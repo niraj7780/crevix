@@ -72,11 +72,12 @@ const config: Config = {
         },
       },
       fontFamily: {
-        headline: ["var(--font-noto-serif)", "Noto Serif", "serif"],
-        display: ["var(--font-noto-serif)", "Noto Serif", "serif"],
-        body: ["var(--font-inter)", "Inter", "sans-serif"],
-        label: ["var(--font-public-sans)", "Public Sans", "sans-serif"],
-        mono: ["var(--font-jetbrains-mono)", "JetBrains Mono", "monospace"],
+        headline: ["var(--font-heading)", "Plus Jakarta Sans", "Inter", "-apple-system", "sans-serif"],
+        display: ["var(--font-heading)", "Plus Jakarta Sans", "Inter", "-apple-system", "sans-serif"],
+        body: ["var(--font-body)", "Inter", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        label: ["var(--font-heading)", "Public Sans", "sans-serif"],
+        mono: ["var(--font-mono)", "JetBrains Mono", "monospace"],
+        serif: ["var(--font-serif)", "Playfair Display", "Georgia", "serif"],
       },
       borderRadius: {
         sm: "0.25rem",

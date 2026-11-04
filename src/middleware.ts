@@ -16,14 +16,11 @@ export default clerkMiddleware((auth, req) => {
     secretKey.startsWith("sk_");
 
   if (isProtectedRoute(req)) {
-    if (process.env.NODE_ENV === "production" && !isClerkActive) {
-      // In production, unconfigured authentication must redirect to login with no bypass
+    const { userId } = auth();
+    if (!userId) {
       const loginUrl = new URL("/login", req.url);
+      loginUrl.searchParams.set("redirect_url", req.nextUrl.pathname);
       return NextResponse.redirect(loginUrl);
-    }
-
-    if (isClerkActive) {
-      auth().protect();
     }
   }
 

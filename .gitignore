@@ -22,6 +22,9 @@
 .env.*
 !.env.example
 
+# Local helper scripts
+push.bat
+
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts

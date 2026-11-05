@@ -25,7 +25,7 @@
 | **Phase 12** | Real Infrastructure: Neon PostgreSQL Database | **COMPLETED** | 20 tables migrated, 20 PKs, 27 FKs, 42 indexes, tenant isolation verified |
 | **Phase 13** | Real Infrastructure: Cloudflare R2 Object Storage | **COMPLETED** | Bucket `crevix-bu` verified; upload/download/delete verified with 0 residual state |
 | **Phase 14** | Real Infrastructure: Meta Instagram Graph API | **COMPLETED** | Live OAuth handshake passed (HTTP 200), App "crevix" (ID: 2496089750882782) verified, HMAC-SHA256 signature passed (7/7 tests) |
-| **Phase 15** | Real Infrastructure: Dodo Payments (₹199/mo) | **IN PROGRESS** | Ready for ₹199/mo subscription checkout creation & webhook verification |
+| **Phase 15** | Real Infrastructure: Dodo Payments (₹199/mo) | **DEFERRED** | Deferred by user; ready for live keys when payment gateway account is ready |
 
 ---
 

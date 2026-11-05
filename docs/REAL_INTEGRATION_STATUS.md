@@ -17,7 +17,7 @@
 | **2** | **Neon PostgreSQL** | **VERIFIED WORKING** | ✅ PASSED (HTTP 200) | Live handshake verified; all 20 tables migrated; 20 PKs, 27 FKs, 42 indexes, and tenant isolation verified. |
 | **3** | **Cloudflare R2** | **VERIFIED WORKING** | ✅ PASSED (HTTP 200) | Live S3 authentication, presigned PUT/GET URLs, real upload, byte-for-byte download, and delete verified. |
 | **4** | **Meta Instagram API** | **APP VERIFIED / PAGE TOKEN NEXT** | ✅ PASSED (HTTP 200) | Live Meta OAuth handshake verified; registered app "crevix" (ID: 2496089750882782) validated; HMAC-SHA256 signature verification passed. |
-| **5** | **Dodo Payments** | **QUEUED** | Pending Step 4 Final | ₹199/month subscription checkout sessions and signed webhook delivery. |
+| **5** | **Dodo Payments** | **DEFERRED (PENDING SETUP)** | Paused by User | ₹199/month recurring subscription checkout sessions & HMAC webhook signatures deferred for later configuration. |
 
 ---
 
